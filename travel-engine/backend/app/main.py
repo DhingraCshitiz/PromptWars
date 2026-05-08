@@ -77,10 +77,20 @@ app.add_middleware(
 )
 
 
+def _openapi_json_path() -> str:
+    """OpenAPI JSON lives under API_V1_STR; must not require DB (Swagger loads it first)."""
+    base = settings.API_V1_STR.rstrip("/")
+    return f"{base}/openapi.json"
+
+
 @app.middleware("http")
 async def wait_for_db_before_api(request: Request, call_next):
     path = request.url.path
     if request.method == "OPTIONS":
+        return await call_next(request)
+    # Let /docs and ReDoc fetch the schema even while DB is starting or after a DB failure.
+    openapi_path = _openapi_json_path()
+    if path == openapi_path or path == openapi_path + "/":
         return await call_next(request)
     if path.startswith(settings.API_V1_STR):
         await _db_boot_done.wait()
