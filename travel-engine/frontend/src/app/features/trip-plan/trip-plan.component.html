@@ -1,0 +1,96 @@
+<div class="page-wrap">
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow muted">Travel Engine</p>
+      <h1 class="headline">Design a trip worth taking</h1>
+      <p class="sub muted">
+        Pick dates (dd/MM/yyyy), tune pace and interests, then we shape a day-by-day plan from your preferences.
+      </p>
+    </div>
+  </section>
+
+  <mat-card class="panel">
+    <mat-card-header>
+      <mat-card-title>Trip basics</mat-card-title>
+      <mat-card-subtitle>Destination and travel window</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="submit()" class="grid">
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Destination</mat-label>
+          <input matInput formControlName="destination" placeholder="e.g. Kyoto, Japan" autocomplete="address-level2" />
+          <mat-icon matPrefix class="field-icon">place</mat-icon>
+          <mat-error>Destination is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Start date</mat-label>
+          <input matInput [matDatepicker]="startPick" formControlName="start_date" [min]="today" placeholder="dd/mm/yyyy" />
+          <mat-datepicker-toggle matSuffix [for]="startPick"></mat-datepicker-toggle>
+          <mat-datepicker #startPick></mat-datepicker>
+          <mat-hint>dd/mm/yyyy</mat-hint>
+          <mat-error>Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>End date</mat-label>
+          <input matInput [matDatepicker]="endPick" formControlName="end_date" [min]="endMin" placeholder="dd/mm/yyyy" />
+          <mat-datepicker-toggle matSuffix [for]="endPick"></mat-datepicker-toggle>
+          <mat-datepicker #endPick></mat-datepicker>
+          <mat-hint>dd/mm/yyyy</mat-hint>
+          <mat-error>Required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Budget</mat-label>
+          <mat-select formControlName="budget_level">
+            <mat-option value="low">Low</mat-option>
+            <mat-option value="medium">Medium</mat-option>
+            <mat-option value="high">High</mat-option>
+          </mat-select>
+          <mat-icon matPrefix class="field-icon">payments</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Pace</mat-label>
+          <mat-select formControlName="travel_pace">
+            <mat-option value="relaxed">Relaxed</mat-option>
+            <mat-option value="moderate">Moderate</mat-option>
+            <mat-option value="fast">Fast</mat-option>
+          </mat-select>
+          <mat-icon matPrefix class="field-icon">directions_run</mat-icon>
+        </mat-form-field>
+
+        <div class="section-label full muted">Extras</div>
+
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Interests</mat-label>
+          <textarea matInput formControlName="interests" rows="2" placeholder="Comma separated · food · museums · nightlife"></textarea>
+          <mat-icon matPrefix class="field-icon stacked">favorite</mat-icon>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Dietary restrictions</mat-label>
+          <input matInput formControlName="dietary_restrictions" placeholder="Optional · vegetarian, halal, …" />
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full">
+          <mat-label>Accessibility needs</mat-label>
+          <input matInput formControlName="accessibility_needs" placeholder="Optional · step‑free routes, rests, …" />
+        </mat-form-field>
+
+        <div class="actions full">
+          <button mat-flat-button color="primary" class="cta" type="submit" [disabled]="submitting">
+            @if (submitting) {
+              <mat-spinner diameter="22"></mat-spinner>
+              <span class="btn-label">Creating…</span>
+            } @else {
+              <mat-icon inline>rocket_launch</mat-icon>
+              <span>Create trip</span>
+            }
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

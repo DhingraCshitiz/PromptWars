@@ -10,20 +10,21 @@ This guide describes how to deploy the Travel Engine to Google Cloud Platform.
 ## 1. Provision Infrastructure
 Run the provisioning script to enable APIs, create a Service Account, Artifact Registry repository, and Cloud SQL instance.
 
-```bash
-cd infra/gcp
-export PROJECT_ID="your-gcp-project-id"
-export REGION="us-central1"
-./provision-gcp.sh
+```powershell
+cd travel-engine\infra\gcp
+$env:PROJECT_ID="your-gcp-project-id"
+$env:REGION="us-central1"
+.\provision-gcp.ps1
 ```
 
 ## 2. Deploy Services
 Once infrastructure is provisioned, you can deploy both backend and frontend.
 
-```bash
-export PROJECT_ID="your-gcp-project-id"
-export REGION="us-central1"
-./deploy.sh
+```powershell
+cd travel-engine\infra\gcp
+$env:PROJECT_ID="your-gcp-project-id"
+$env:REGION="us-central1"
+.\deploy.ps1
 ```
 
 ## IAM & Least Privilege

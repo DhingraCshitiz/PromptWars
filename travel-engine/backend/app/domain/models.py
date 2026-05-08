@@ -24,7 +24,11 @@ class Trip(Base):
     
     user: Mapped["UserProfile"] = relationship(back_populates="trips")
     preferences: Mapped["TripPreference"] = relationship(back_populates="trip", uselist=False)
-    days: Mapped[List["ItineraryDay"]] = relationship(back_populates="trip", cascade="all, delete-orphan")
+    days: Mapped[List["ItineraryDay"]] = relationship(
+        back_populates="trip",
+        cascade="all, delete-orphan",
+        order_by="ItineraryDay.day_index",
+    )
 
 class TripPreference(Base):
     __tablename__ = "trip_preferences"
@@ -46,7 +50,11 @@ class ItineraryDay(Base):
     day_index: Mapped[int] = mapped_column(Integer)
     
     trip: Mapped["Trip"] = relationship(back_populates="days")
-    stops: Mapped[List["ItineraryStop"]] = relationship(back_populates="day", cascade="all, delete-orphan")
+    stops: Mapped[List["ItineraryStop"]] = relationship(
+        back_populates="day",
+        cascade="all, delete-orphan",
+        order_by="ItineraryStop.order_index",
+    )
 
 class ItineraryStop(Base):
     __tablename__ = "itinerary_stops"

@@ -1,0 +1,82 @@
+# --- OS ---
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# --- Editors / IDEs ---
+.idea/
+*.swp
+*.swo
+*~
+
+# --- Environment & secrets ---
+.env
+.env.*
+!.env.example
+!**/.env.example
+!.env.*.example
+*.pem
+*.key
+secrets.json
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+.venv/
+venv/
+ENV/
+pip-wheel-metadata/
+*.egg
+*.egg-info/
+.eggs/
+build/
+dist/
+sdist/
+var/
+wheels/
+*.manifest
+*.spec
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+.tox/
+.nox/
+hypothesis/
+.ipynb_checkpoints/
+
+# --- Node / JavaScript ---
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+.npm
+.eslintcache
+
+# --- Angular ---
+.angular/
+**/dist/
+
+# --- Databases (local / dev) ---
+*.sqlite
+*.sqlite3
+*.db
+
+# --- Test / E2E ---
+playwright-report/
+test-results/
+playwright/.cache/
+
+# --- Docker / misc logs ---
+*.log
+
+# --- Project-specific ---
+travel-engine/backend/data/
+travel-engine/backend/traveldb.sqlite
+travel-engine/backend/.venv/

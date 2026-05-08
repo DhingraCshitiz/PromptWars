@@ -1,0 +1,101 @@
+<div class="page-wrap">
+  @if (loading && !trip) {
+    <div class="center">
+      <mat-spinner diameter="40"></mat-spinner>
+      <p class="muted">Loading trip…</p>
+    </div>
+  } @else if (error) {
+    <mat-card class="card">
+      <mat-card-content>
+        <h2 class="card-title">Something went wrong</h2>
+        <p class="muted">{{ error }}</p>
+        <p class="muted">Make sure the API is running (e.g. <code>uvicorn</code> on port 8000).</p>
+      </mat-card-content>
+    </mat-card>
+  } @else if (trip) {
+    <div class="header-row">
+      <div>
+        <p class="eyebrow muted">Trip #{{ trip.id }}</p>
+        <h1 class="headline">{{ trip.destination }}</h1>
+        <p class="muted dates">
+          <span class="date-pair">{{ ukDate(trip.start_date) }} → {{ ukDate(trip.end_date) }}</span>
+        </p>
+      </div>
+      <button mat-stroked-button color="primary" type="button" (click)="replan()">Replan</button>
+    </div>
+
+    <mat-card class="card prefs">
+      <mat-card-content>
+        <h2 class="section-title">Preferences</h2>
+        <div class="pref-grid muted">
+          <div><strong>Budget</strong> {{ trip.preferences.budget_level }}</div>
+          <div><strong>Pace</strong> {{ trip.preferences.travel_pace }}</div>
+          <div class="full">
+            <strong>Interests</strong>
+            {{ trip.preferences.interests.length ? trip.preferences.interests.join(', ') : '—' }}
+          </div>
+          <div class="full">
+            <strong>Dietary</strong>
+            {{
+              trip.preferences.dietary_restrictions.length
+                ? trip.preferences.dietary_restrictions.join(', ')
+                : '—'
+            }}
+          </div>
+          <div class="full">
+            <strong>Accessibility</strong>
+            {{
+              trip.preferences.accessibility_needs.length
+                ? trip.preferences.accessibility_needs.join(', ')
+                : '—'
+            }}
+          </div>
+        </div>
+      </mat-card-content>
+    </mat-card>
+
+    @if (trip.days.length === 0) {
+      <mat-card class="card">
+        <mat-card-content class="banner">
+          <mat-spinner diameter="28"></mat-spinner>
+          <div>
+            <h2 class="section-title">Generating your itinerary</h2>
+            <p class="muted">This page refreshes automatically while stops are planned.</p>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    } @else {
+      <section class="days">
+        @for (day of trip.days; track day.id) {
+          <mat-card class="card">
+            <mat-card-content>
+              <div class="day-head">
+                <h2 class="section-title">Day {{ day.day_index + 1 }}</h2>
+                <span class="muted">{{ ukDate(day.date) }}</span>
+              </div>
+
+              @if (day.stops.length === 0) {
+                <p class="muted">No stops yet.</p>
+              } @else {
+                <ul class="stops">
+                  @for (stop of day.stops; track stop.id) {
+                    <li class="stop">
+                      <div class="stop-title">
+                        <span class="name">{{ stop.name }}</span>
+                        <span class="muted time">{{ formatTime(stop.start_time) }} – {{ formatTime(stop.end_time) }}</span>
+                      </div>
+                      <p class="muted desc">{{ stop.description }}</p>
+                      @if (stop.cost_estimate != null) {
+                        <p class="muted cost">Est. cost: {{ stop.cost_estimate | currency: 'USD' : 'symbol' : '1.0-0' }}</p>
+                      }
+                    </li>
+                  }
+                </ul>
+              }
+            </mat-card-content>
+          </mat-card>
+        }
+      </section>
+    }
+  }
+</div>

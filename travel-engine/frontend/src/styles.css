@@ -1,0 +1,91 @@
+@import '@angular/material/prebuilt-themes/indigo-pink.css';
+
+:root {
+  --page-max: 1040px;
+  --page-padding: clamp(1rem, 4vw, 1.75rem);
+
+  /* Google-ish palette (flat surfaces, blue accents) */
+  --gv-blue: #1a73e8;
+  --gv-blue-dark: #1557b0;
+  --gv-text: #202124;
+  --gv-muted: #5f6368;
+  --gv-border: #dadce0;
+  --gv-surface: #ffffff;
+  --gv-page: #f8f9fa;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  font-family: Roboto, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+body {
+  background: var(--gv-page);
+  color: var(--gv-text);
+  -webkit-font-smoothing: antialiased;
+}
+
+.page-wrap {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding: var(--page-padding);
+}
+
+.muted {
+  color: var(--gv-muted);
+  font-size: 0.875rem;
+}
+
+/* Flatten elevated cards globally; components can add borders */
+.mat-mdc-card {
+  border-radius: 8px !important;
+  border: 1px solid rgba(218, 220, 224, 0.9);
+  box-shadow: none !important;
+}
+
+/* Primary controls → Material blue (#1a73e8), less “indigo” */
+.mat-mdc-form-field.mat-focused {
+  --mdc-outlined-text-field-focus-outline-color: var(--gv-blue);
+  --mat-form-field-focus-select-arrow-color: rgba(26, 115, 232, 0.87);
+}
+
+.mat-mdc-form-field:not(.mat-form-field-invalid).mat-focused {
+  --mat-select-focused-arrow-color: rgba(26, 115, 232, 0.87);
+}
+
+.mat-datepicker-toggle.mat-primary button {
+  color: var(--gv-blue);
+}
+
+.mat-datepicker-content,
+.mat-datepicker-content-touch {
+  --mat-datepicker-calendar-date-selected-state-background-color: var(--gv-blue);
+  --mat-datepicker-calendar-date-focus-state-background-color: rgba(26, 115, 232, 0.24);
+  --mat-datepicker-calendar-date-hover-state-background-color: rgba(26, 115, 232, 0.12);
+  --mat-datepicker-calendar-date-in-range-state-background-color: rgba(26, 115, 232, 0.16);
+  --mat-datepicker-toggle-active-state-icon-color: var(--gv-blue);
+}
+
+.mat-mdc-unelevated-button.mat-primary:not(:disabled),
+.mat-mdc-raised-button.mat-primary:not(:disabled) {
+  --mdc-filled-button-container-color: var(--gv-blue);
+  --mdc-filled-button-label-text-color: #ffffff;
+  --mat-filled-button-state-layer-color: #ffffff;
+  --mat-filled-button-ripple-color: rgba(255, 255, 255, 0.2);
+}
+
+.mat-mdc-unelevated-button.mat-primary:not(:disabled):hover {
+  --mdc-filled-button-container-color: var(--gv-blue-dark);
+}
+
+.mat-mdc-outlined-button.mat-primary {
+  --mdc-outlined-button-label-text-color: var(--gv-blue);
+  --mdc-outlined-button-outline-color: var(--gv-border);
+  --mat-outlined-button-state-layer-color: var(--gv-blue);
+}
+
+.mat-mdc-progress-spinner.mat-primary {
+  --mdc-circular-progress-active-indicator-color: var(--gv-blue);
+}

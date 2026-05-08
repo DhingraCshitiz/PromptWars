@@ -1,0 +1,31 @@
+<header class="app-header">
+  <mat-toolbar class="toolbar">
+    <a routerLink="/" class="brand" aria-label="Travel Engine home">
+      <span class="brand-mark">
+        <mat-icon class="brand-icon" aria-hidden="true">travel_explore</mat-icon>
+      </span>
+      <span class="brand-copy">
+        <span class="brand-title">{{ title }}</span>
+        <span class="brand-sub muted">Trip planning</span>
+      </span>
+    </a>
+
+    <span class="toolbar-spacer"></span>
+
+    <nav class="toolbar-actions" aria-label="Main actions">
+      <a
+        mat-flat-button
+        color="primary"
+        routerLink="/"
+        class="header-cta"
+        routerLinkActive="is-active-route"
+        [routerLinkActiveOptions]="{ exact: true }">
+        Plan new trip
+      </a>
+    </nav>
+  </mat-toolbar>
+</header>
+
+<main class="app-main">
+  <router-outlet />
+</main>
