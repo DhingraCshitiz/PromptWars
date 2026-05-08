@@ -182,6 +182,12 @@ try {
   npm run build
   if ($LASTEXITCODE -ne 0) { throw "Angular build failed with exit code $LASTEXITCODE." }
 
+  # Firebase CLI requires a default project id (fixes: "site with no site name or target name").
+  $fbRcPath = Join-Path $FrontendDir ".firebaserc"
+  $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
+  $fbRcBody = "{`n  `"projects`": {`n    `"default`": `"$ProjectId`"`n  }`n}` + "`n"
+  [System.IO.File]::WriteAllText($fbRcPath, $fbRcBody, $utf8NoBom)
+
   firebase deploy --project $ProjectId --only hosting
 }
 finally {

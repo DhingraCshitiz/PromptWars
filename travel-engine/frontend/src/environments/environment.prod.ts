@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiBaseUrl: '/api/v1',
+  apiBaseUrl: 'https://travel-engine-backend-1010469134926.us-central1.run.app',
 };
